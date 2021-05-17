@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+          display: flex;
+            text-align: center;
+            height: 700px;
+            width: 100%;
+            justify-content: center;
+        }
+        .container{
+            width: 500px;
+        }
+        .entry{
+            height: 300px;
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <div><h1>data selfie app</h1></div>
+        <div class="entry"><p id="datastore">the data is</p></div>
+    </div>
+    
+
+   <script>
+      var dd={};
+       getData();
+        async function getData (){
+        const response =await fetch('/api');
+        const data =await response.json();
+        console.log(data);
+        dd=data;
+        document.getElementById("datastore").innerText=JSON.stringify(data);
+        
+    }
+    
+   </script>
+</body>
+</html>

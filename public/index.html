@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+          display: flex;
+            text-align: center;
+            height: 700px;
+            width: 100%;
+            justify-content: center;
+        }
+        .container{
+          width: 300px;
+          height: 400px;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          background-color: lightgray;
+        }
+        .box{
+          padding: 8px;
+          font-size: 18px;
+        }
+        input{
+          width: 95%;
+        }
+        button{
+          width: 100%;
+          height: 22px;
+          background-color: lime;
+          border: none;
+        }
+        .lnk{
+          height: 20px;
+          width:100%;
+          margin-top: 90px;
+          color: black;
+          font-size: 15px;
+          background-color: lime;
+         
+        }
+        a{
+          text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+    
+  <div class="container">
+
+  <div class="box box4"><h1>data selfie app</h1></div>
+  <div class="box box1">name: <input type="text" id="inpt"></div>
+  <div class="box box2">mood:<input type="text" id="md"></div>
+  <div class="box box3"> <button onclick="send(document.getElementById('inpt').value,document.getElementById('md').value)">send</button></div>   
+  <div class="lnk"><a href="all.html">database</a></div>
+</div>
+ 
+
+
+
+    <script>
+const ob={
+            name: "",mood: ""
+        }
+        function send(val,mdd){
+            ob.name=val;
+            ob.mood=mdd;
+          
+        went(ob);
+        }
+
+
+
+      async function went(val){
+         const data =val;
+         const options={
+         method: 'POST',headers: {'Content-Type':'application/json'},
+         body: JSON.stringify(data)
+        }; 
+         const response=await fetch('/api',options);
+         const stream=await response.json();
+
+         console.log(stream);
+      
+       }
+     
+
+    </script>
+</body>
+</html>
