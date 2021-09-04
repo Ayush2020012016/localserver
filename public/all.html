@@ -1,45 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body{
-          display: flex;
+        body {
+            display: flex;
             text-align: center;
             height: 700px;
             width: 100%;
             justify-content: center;
+            background: url(https://secure.img1-fg.wfcdn.com/im/74582046/compr-r85/2333/23337071/prescod-satin-33-x-205-floral-wallpaper.jpg);
         }
-        .container{
+
+        .container {
             width: 500px;
         }
-        .entry{
-            height: 300px;
+
+        button {
+            padding: .2em;
+            background: green;
+            font-weight: 900;
+            font-size: 2em;
+            margin: 1em;
         }
-        </style>
+
+        button:hover {
+            opacity: .6;
+            color: white;
+        }
+
+        .container h1 {
+            text-transform: uppercase;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .container .heading {
+            background: darkblue;
+            padding: .4em;
+            box-shadow: -3px 5px 35px black;
+        }
+      
+        .card {
+
+            font: 900;
+            color: red;
+            background: lightgreen;
+            box-shadow: -3px 5px 35px black;
+        }
+
+        .list {
+            font: 500;
+            font-size: 2em;
+            text-transform: uppercase;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: .2em;
+            margin-top: .4em;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
-        <div><h1>data selfie app</h1></div>
-        <div class="entry"><p id="datastore">the data is</p></div>
+        <div class="heading">
+            <h1>Your mood app</h1>
+        </div>
+        <div id="datastore"></div>
+        <button onclick="window.location.href='index.html'">return</button>
     </div>
-    
 
-   <script>
-      var dd={};
-       getData();
-        async function getData (){
-        const response =await fetch('/api');
-        const data =await response.json();
-        console.log(data);
-        dd=data;
-        document.getElementById("datastore").innerText=JSON.stringify(data);
-        
-    }
-    
-   </script>
+
+    <script>
+        var dd = {};
+        getData();
+        async function getData() {
+            const response = await fetch('/api');
+            const data = await response.json();
+            console.log(data);
+            dd = data;
+            // document.getElementById("datastore").innerText=JSON.stringify(data);
+
+            render(JSON.stringify(data));
+        }
+        function render(recievedData) {
+            let a = 0;
+            const info = JSON.parse(recievedData);
+            console.log(info);
+            if (info[a] === null)
+                return;
+
+            else {
+                info.forEach(element => {
+
+                    console.log(element);
+                    var newdiv = document.createElement('div');
+                    console.log(newdiv);
+                    newdiv.classList.add('card');
+                    console.log(newdiv);
+
+                    var newdivforname = document.createElement('div');
+                    var newdivformood = document.createElement('div');
+                    var newdivforlatitude = document.createElement('div');
+                    var newdivforlongitude = document.createElement('div');
+
+                    newdivforname.innerText = element.name;
+                    newdivformood.innerText = element.mood;
+                    newdivforlatitude.innerText = element.latitude;
+                    newdivforlongitude.innerText = element.longitude;
+
+                    newdiv.appendChild(newdivforname);
+                    newdiv.appendChild(newdivformood);
+                    newdiv.appendChild(newdivforlatitude);
+                    newdiv.appendChild(newdivforlongitude);
+
+                    const listproperty = newdiv.childNodes;
+                    for (var i = 0; i < listproperty.length; i++) {
+                        console.log("ayush")
+                        listproperty[i].className = 'list';
+                    }
+
+                    document.getElementById("datastore").appendChild(newdiv);
+                })
+
+            }
+        }
+    </script>
 </body>
+
 </html>

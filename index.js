@@ -17,7 +17,7 @@ app.get('/api',(request ,response)=>
 {
     database.find({},(err,data)=>{
         if(err){response.end();
-            console.log("error hao bhai")
+            console.log("error")
         return;}
         response.json(data);
 
@@ -30,6 +30,7 @@ app.get('/api',(request ,response)=>
 
 app.post('/api', ( request,  response  )=>{ 
     const data=request.body;
+    console.log(request.body);
      database.insert(data);
      console.log(data);
      response.json(data);
